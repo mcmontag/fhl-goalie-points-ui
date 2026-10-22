@@ -481,7 +481,8 @@ function dashboard() {
       const span = (this.data.weeks ?? []).find(x => x.week === w);
       if (!span?.start) return "";
       const day = d => new Date(d + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" });
-      if (!span.end) return `Since ${day(span.start)}`;
+      // an in-progress matchup's end isn't known (ESPN only reports days played so far)
+      if (!span.end) return `${day(span.start)} – Now`;
       return `${day(span.start)} – ${day(span.end)}` + (span.days > 8 ? ` · ${span.days} days` : "");
     },
     weekFinal(w) {
