@@ -34,10 +34,10 @@
       <span class="text-slate-500 dark:text-slate-400" x-text="bonusSummary"></span>
       <span class="ml-auto text-slate-500 dark:text-slate-400" :title="data && new Date(data.meta.lastRunUtc).toLocaleString()" x-text="data ? 'Updated ' + ago(data.meta.lastRunUtc) : ''"></span>
     </div>
-    <nav x-show="data" x-cloak class="mt-6 flex gap-1 overflow-x-auto text-sm font-medium shadow-[inset_0_-1px_0_theme(colors.slate.200)] dark:shadow-[inset_0_-1px_0_theme(colors.slate.800)]">
+    <nav x-show="data" x-cloak class="mt-6 flex gap-1 overflow-x-auto [scrollbar-width:none] text-sm font-medium shadow-[inset_0_-1px_0_theme(colors.slate.200)] dark:shadow-[inset_0_-1px_0_theme(colors.slate.800)]">
       <template x-for="t in tabs" :key="t.id">
         <button type="button" @click="selectTab(t.id)"
-          class="whitespace-nowrap border-b-2 px-3 py-2 transition-colors"
+          class="whitespace-nowrap border-b-2 px-2.5 py-2 transition-colors sm:px-3"
           :class="tab === t.id ? 'border-sky-600 text-sky-700 dark:border-sky-400 dark:text-sky-300' : 'border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'"
           x-text="t.label"></button>
       </template>
@@ -160,9 +160,9 @@
       </ol>
     </section>
 
-    <!-- weekly matchups -->
-    <section x-show="tab === 'matchups'">
-      <div class="mb-4 flex flex-wrap items-center gap-3">
+    <!-- matchups (selected matchup) and flips (every flipped matchup) share the card template -->
+    <section x-show="tab === 'matchups' || tab === 'flips'">
+      <div x-show="tab === 'matchups'" class="mb-4 flex flex-wrap items-center gap-3">
         <div class="w-full sm:mr-auto sm:w-auto">
           <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white">
             <span x-text="weekLabel(week)"></span>
@@ -202,10 +202,10 @@
       </div>
 
       <template x-for="group in cardGroups" :key="group.id">
-        <div :class="group.title && 'mt-10'">
+        <div>
           <template x-if="group.title">
             <div class="mb-4">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white" x-text="group.title"></h3>
+              <h2 class="text-lg font-semibold text-slate-900 dark:text-white" x-text="group.title"></h2>
               <p class="text-sm text-slate-500 dark:text-slate-400" x-text="group.subtitle"></p>
             </div>
           </template>
@@ -354,7 +354,8 @@ function dashboard() {
     tabs: [
       { id: "feed", label: "Goalie points" },
       { id: "matchups", label: "Matchups" },
-      { id: "sandbox", label: "What-if sandbox" },
+      { id: "flips", label: "Flips" },
+      { id: "sandbox", label: "Sandbox" },
     ],
     feedFilter: "scored",
     playing: null,
@@ -531,11 +532,11 @@ function dashboard() {
       this.$nextTick(() => this.$root.querySelector("[aria-label='Choose matchup'] [aria-current='true']")?.focus({ preventScroll: true }));
     },
     get cardGroups() {
-      return [
-        { id: "week", items: this.weekMatchups },
-        { id: "flipped", title: "Flipped matchups", subtitle: "Every matchup decided by goalie points this season",
-          items: this.flipped, showWeek: true, empty: "None yet this season." },
-      ];
+      if (this.tab === "flips") {
+        return [{ id: "flipped", title: "Flipped matchups", subtitle: "Every matchup decided by goalie points this season",
+          items: this.flipped, showWeek: true, empty: "None yet this season." }];
+      }
+      return [{ id: "week", items: this.weekMatchups }];
     },
     get weekMatchups() {
       return this.data.matchups.filter(m => m.week === this.week);
