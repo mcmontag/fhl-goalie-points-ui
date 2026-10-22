@@ -95,8 +95,9 @@
       <p x-show="!feed.length" class="py-8 text-center text-slate-500">Nothing here yet.</p>
       <ol class="space-y-3">
         <template x-for="a in feed" :key="a.id">
-          <li class="flex gap-4 rounded-xl bg-white p-4 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"
+          <li class="rounded-xl bg-white p-4 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"
               :class="a.benched && 'opacity-75'">
+           <div class="flex gap-4">
             <img :src="headshot(a)" :alt="a.goalieName" loading="lazy" @error="$el.src = SILHOUETTE"
                  class="h-16 w-16 flex-none rounded-full bg-slate-100 object-cover ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
             <div class="min-w-0 flex-1">
@@ -115,13 +116,24 @@
               <p class="mt-1 flex flex-wrap gap-x-3 text-sm text-slate-500 dark:text-slate-400">
                 <span x-text="dateLabel(a.gameDate)"></span>
                 <span x-show="a.week" x-text="'Week ' + a.week"></span>
+                <button type="button" x-show="clipId(a)" @click="playing = playing === a.id ? null : a.id"
+                   :aria-expanded="playing === a.id" class="font-medium text-sky-700 hover:underline dark:text-sky-400"
+                   x-text="playing === a.id ? '■ Hide highlight' : '▶ Watch highlight'"></button>
                 <a x-show="safeHighlight(a)" :href="safeHighlight(a)" target="_blank" rel="noopener"
-                   class="font-medium text-sky-700 hover:underline dark:text-sky-400">Watch highlight ↗</a>
+                   class="text-sky-700 hover:underline dark:text-sky-400">NHL.com ↗</a>
               </p>
             </div>
             <p class="flex-none text-lg font-bold tabular"
                :class="a.benched ? 'text-slate-400 line-through decoration-2' : 'text-emerald-600 dark:text-emerald-400'"
                x-text="'+' + fmt(a.benched ? wouldBe(a) : a.pointsAdded)"></p>
+           </div>
+           <!-- the player only loads once someone asks for it -->
+           <template x-if="playing === a.id && clipId(a)">
+             <div class="mt-4 aspect-video w-full overflow-hidden rounded-lg bg-black">
+               <iframe :src="embedUrl(a)" :title="`Highlight: ${a.goalieName} ${a.eventType}`" class="h-full w-full"
+                 allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+             </div>
+           </template>
           </li>
         </template>
       </ol>
@@ -139,6 +151,9 @@
               <span x-show="isFirstPlayoffWeek(w)" class="absolute left-1 top-1/2 h-3 w-px -translate-y-1/2 bg-slate-300 dark:bg-slate-700" aria-hidden="true"></span>
               <button type="button" @click="week = w" :disabled="!weeks.includes(w)"
                 :aria-label="weekTitle(w)" :title="weekTitle(w)" :aria-current="w === week ? 'true' : null"
+                :tabindex="w === week ? 0 : -1"
+                @keydown.left.prevent="stepWeek(-1, true)" @keydown.right.prevent="stepWeek(1, true)"
+                @keydown.home.prevent="pickWeek(weeks[0], true)" @keydown.end.prevent="pickWeek(weeks[weeks.length - 1], true)"
                 class="group flex h-7 min-w-0 items-center justify-center transition-all duration-200 disabled:cursor-default sm:flex-none"
                 :class="w === week ? 'flex-1 sm:w-7' : 'flex-1 sm:w-4'">
                 <span class="flex-none rounded-full transition-all duration-200" :class="weekDotClass(w)"></span>
@@ -283,6 +298,8 @@ const SILHOUETTE = "data:image/svg+xml," + encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#cbd5e1"/>' +
   '<circle cx="32" cy="25" r="11" fill="#94a3b8"/><path d="M12 58c2-12 10-18 20-18s18 6 20 18z" fill="#94a3b8"/></svg>');
 
+const NHL_PLAYER = "https://players.brightcove.net/6415718365001/D3UCGynRWU_default/index.html";
+
 const STRENGTH = { ev: "", pp: "Power-play ", sh: "Shorthanded " };
 
 function dashboard() {
@@ -297,6 +314,7 @@ function dashboard() {
       { id: "sandbox", label: "What-if sandbox" },
     ],
     feedFilter: "all",
+    playing: null,
     feedFilters: [
       { id: "all", label: "All" },
       { id: "scored", label: "Scored" },
@@ -359,6 +377,14 @@ function dashboard() {
     safeHighlight(a) {
       return /^https:\/\/([a-z0-9-]+\.)*nhl\.com\//i.test(a.highlightUrl ?? "") ? a.highlightUrl : null;
     },
+    // NHL share links end in the Brightcove video id; the NHL's own player embeds it
+    clipId(a) {
+      const url = this.safeHighlight(a);
+      return url ? (url.match(/-(\d{6,})$/) ?? [])[1] ?? null : null;
+    },
+    embedUrl(a) {
+      return `${NHL_PLAYER}?videoId=${this.clipId(a)}&autoplay=true`;
+    },
     eventLabel(a) {
       const what = a.eventType === "goal" ? "goal" : "assist";
       const s = STRENGTH[a.strength] ?? "";
@@ -413,9 +439,14 @@ function dashboard() {
       const i = this.weeks.indexOf(this.week);
       return this.weeks[i + dir] ?? null;
     },
-    stepWeek(dir) {
-      const w = this.adjacentWeek(dir);
-      if (w != null) this.week = w;
+    stepWeek(dir, focus = false) {
+      this.pickWeek(this.adjacentWeek(dir), focus);
+    },
+    pickWeek(w, focus = false) {
+      if (w == null) return;
+      this.week = w;
+      // keyboard navigation: keep focus on the newly selected week
+      if (focus) this.$nextTick(() => this.$root.querySelector("[aria-label='Choose week'] [aria-current='true']")?.focus());
     },
     get weekMatchups() {
       return this.data.matchups.filter(m => m.week === this.week);
