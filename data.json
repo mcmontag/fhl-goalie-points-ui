@@ -1,8 +1,9 @@
 {
  "meta": {
-  "lastRunUtc": "2026-10-22T14:49:02Z",
+  "lastRunUtc": "2026-10-22T21:41:29Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
+  "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
   "currentScoringPeriod": 24,
   "currentWeek": 4,
   "totalWeeks": 25,
@@ -71,7 +72,7 @@
    "period": 3,
    "timeInPeriod": "17:26",
    "highlightUrl": "https://nhl.com/video/tbl-nyr-shesterkin-scores-empty-net-goal-6406081254112",
-   "issueNumber": 4
+   "auditIssue": 3
   },
   {
    "id": "2026020020-458-8480981-assist",
@@ -95,7 +96,7 @@
    "period": 3,
    "timeInPeriod": "17:52",
    "highlightUrl": "https://nhl.com/video/pius-suter-with-a-goal-vs-dallas-stars-6406155078112",
-   "issueNumber": 1
+   "auditIssue": 2
   },
   {
    "id": "2026020036-1205-8478048-assist",
@@ -119,7 +120,7 @@
    "period": 3,
    "timeInPeriod": "18:45",
    "highlightUrl": "https://nhl.com/video/uta-nyr-tolvanen-scores-empty-net-goal-6406230452112",
-   "issueNumber": 4
+   "auditIssue": 3
   },
   {
    "id": "2026020121-422-8480313-assist",
@@ -143,7 +144,7 @@
    "period": 1,
    "timeInPeriod": "16:42",
    "highlightUrl": "https://nhl.com/video/njd-wsh-leonard-scores-ppg-against-jake-allen-6407019644112",
-   "issueNumber": 5
+   "auditIssue": 4
   }
  ],
  "matchups": [
