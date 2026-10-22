@@ -5,6 +5,8 @@
   "season": "2026-2027",
   "currentScoringPeriod": 24,
   "currentWeek": 4,
+  "totalWeeks": 25,
+  "regularSeasonWeeks": 23,
   "scoringRules": {
    "goal": 3.0,
    "assist": 2.0,

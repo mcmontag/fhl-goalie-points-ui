@@ -130,7 +130,23 @@
     <!-- weekly matchups -->
     <section x-show="tab === 'matchups'">
       <div class="mb-4 flex flex-wrap items-center gap-3">
-        <h2 class="mr-auto text-lg font-semibold text-slate-900 dark:text-white">Matchups: raw vs adjusted</h2>
+        <h2 class="w-full text-lg font-semibold text-slate-900 sm:mr-auto sm:w-auto dark:text-white">Matchups: raw vs adjusted</h2>
+        <div class="flex w-full items-center sm:w-auto" role="group" aria-label="Choose week">
+          <button type="button" @click="stepWeek(-1)" :disabled="!adjacentWeek(-1)" aria-label="Previous week"
+            class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">‹</button>
+          <template x-for="w in allWeeks" :key="w">
+            <span class="flex min-w-0 flex-1 items-center sm:flex-none">
+              <span x-show="isFirstPlayoffWeek(w)" class="mx-0.5 h-3 w-px flex-none bg-slate-300 sm:mx-1 dark:bg-slate-700" aria-hidden="true"></span>
+              <button type="button" @click="week = w" :disabled="!weeks.includes(w)"
+                :aria-label="weekTitle(w)" :title="weekTitle(w)" :aria-current="w === week ? 'true' : null"
+                class="group flex h-7 min-w-0 flex-1 items-center justify-center disabled:cursor-default sm:w-4 sm:flex-none">
+                <span class="h-1.5 w-1.5 flex-none rounded-full transition sm:h-2.5 sm:w-2.5" :class="weekDotClass(w)"></span>
+              </button>
+            </span>
+          </template>
+          <button type="button" @click="stepWeek(1)" :disabled="!adjacentWeek(1)" aria-label="Next week"
+            class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">›</button>
+        </div>
         <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
           Week
           <select x-model.number="week" class="rounded-md border-slate-300 bg-white px-2 py-1 text-slate-800 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
@@ -355,6 +371,46 @@ function dashboard() {
     // --- matchups ---
     get weeks() {
       return [...new Set(this.data.matchups.map(m => m.week))].sort((a, b) => a - b);
+    },
+    // every week of the season, played or not (falls back to the weeks we have data for)
+    get allWeeks() {
+      const total = this.data.meta.totalWeeks ?? Math.max(0, ...this.weeks);
+      return Array.from({ length: total }, (_, i) => i + 1);
+    },
+    isFirstPlayoffWeek(w) {
+      const reg = this.data.meta.regularSeasonWeeks;
+      return reg && w === reg + 1 && w > 1;
+    },
+    weekState(w) {
+      const ms = this.data.matchups.filter(m => m.week === w);
+      if (!ms.length) return "future";
+      if (ms.some(m => m.flipped)) return "flipped";
+      return ms.every(m => m.final) ? "final" : "live";
+    },
+    weekTitle(w) {
+      const label = { future: "not played yet", flipped: "a matchup was flipped by goalie points", final: "final", live: "in progress" };
+      const playoff = this.data.meta.regularSeasonWeeks && w > this.data.meta.regularSeasonWeeks ? " (playoffs)" : "";
+      return `Week ${w}${playoff}: ${label[this.weekState(w)]}`;
+    },
+    weekDotClass(w) {
+      const fill = {
+        future: "ring-1 ring-inset ring-slate-300 dark:ring-slate-700",
+        flipped: "bg-amber-400 group-hover:scale-125",
+        final: "bg-slate-400 group-hover:scale-125 dark:bg-slate-500",
+        live: "bg-sky-300 group-hover:scale-125 dark:bg-sky-700",
+      }[this.weekState(w)];
+      const selected = w === this.week
+        ? " scale-125 ring-2 ring-sky-600 ring-offset-2 ring-offset-slate-50 dark:ring-sky-400 dark:ring-offset-slate-950"
+        : "";
+      return fill + selected;
+    },
+    adjacentWeek(dir) {
+      const i = this.weeks.indexOf(this.week);
+      return this.weeks[i + dir] ?? null;
+    },
+    stepWeek(dir) {
+      const w = this.adjacentWeek(dir);
+      if (w != null) this.week = w;
     },
     get weekMatchups() {
       return this.data.matchups.filter(m => m.week === this.week);
