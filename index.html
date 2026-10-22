@@ -11,7 +11,7 @@
 <style>
   [x-cloak] { display: none !important; }
   .tabular { font-variant-numeric: tabular-nums; }
-  input[type=range] { accent-color: #0284c7; }
+  :where(input[type=range]) { accent-color: #0284c7; }
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 antialiased">
@@ -55,13 +55,48 @@
 
     <!-- what-if scoring, pinned while custom values are active -->
     <div x-show="simActive && tab !== 'sandbox'" x-cloak class="sticky z-10 -mx-1 mb-6 bg-slate-50 px-1 pb-1 pt-2 dark:bg-slate-950" style="top: env(safe-area-inset-top, 0px)">
-      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl bg-violet-50 px-4 py-2 text-sm text-violet-900 shadow-sm ring-1 ring-violet-200 dark:bg-violet-950 dark:text-violet-100 dark:ring-violet-800">
-        <b>What-if scoring</b>
-        <span x-text="simSummary"></span>
-        <span class="ml-auto flex gap-3 font-medium">
-          <button type="button" @click="selectTab('sandbox')" class="hover:underline">Edit</button>
-          <button type="button" @click="resetSim()" class="hover:underline">Reset</button>
-        </span>
+      <div class="rounded-xl bg-violet-50 text-sm text-violet-900 shadow-sm ring-1 ring-violet-200 dark:bg-violet-950 dark:text-violet-100 dark:ring-violet-800">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2">
+          <b>What-if scoring</b>
+          <span x-text="simSummary"></span>
+          <span x-show="!editing" class="ml-auto flex gap-3 font-medium">
+            <button type="button" @click="startEdit()" :aria-expanded="editing" class="hover:underline">Edit</button>
+            <button type="button" @click="resetSim()" class="hover:underline">Reset</button>
+          </span>
+        </div>
+        <!-- Edit expands the bar in place (no navigating away); nothing changes until Apply -->
+        <template x-if="editing">
+          <div class="border-t border-violet-200 px-4 py-3 dark:border-violet-800" @keydown.escape.window="editing = false">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <!-- same controls as the sandbox card, bound to a draft until Apply -->
+            <template x-for="kind in ['goal', 'assist']" :key="kind">
+              <label class="block">
+                <span class="flex justify-between text-sm font-medium">
+                  <span x-text="kind === 'goal' ? 'Goal' : 'Assist'"></span>
+                  <span class="tabular" x-text="fmt(draft[kind]) + ' pts'"></span>
+                </span>
+                <input type="range" min="0" max="15" step="0.5" x-model.number="draft[kind]" class="mt-2 w-full accent-violet-600 dark:accent-violet-400">
+                <span class="text-xs opacity-75" x-text="'Actual: ' + fmt(rules[kind])"></span>
+              </label>
+            </template>
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" x-model="draft.bonuses" class="rounded accent-violet-600 dark:accent-violet-400">
+              Keep power-play / shorthanded bonuses
+            </label>
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" x-model="draft.benched" class="rounded accent-violet-600 dark:accent-violet-400">
+              Count goalies who were on the bench
+            </label>
+          </div>
+            <div class="mt-4 flex flex-wrap items-center gap-3">
+              <button type="button" @click="resetSim(); editing = false" class="font-medium hover:underline">Reset to actual scoring</button>
+              <span class="ml-auto flex gap-2">
+                <button type="button" @click="editing = false" class="rounded-md px-3 py-1.5 font-medium ring-1 ring-violet-300 hover:bg-violet-100 dark:ring-violet-700 dark:hover:bg-violet-900">Cancel</button>
+                <button type="button" @click="applyEdit()" class="rounded-md bg-violet-600 px-3 py-1.5 font-medium text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400 dark:text-violet-950">Apply</button>
+              </span>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -329,6 +364,8 @@ function dashboard() {
     ],
     week: null,
     sim: { goal: 0, assist: 0, bonuses: true, benched: false },
+    editing: false,  // the pinned what-if bar is expanded into an editor
+    draft: { goal: 0, assist: 0, bonuses: true, benched: false },
 
     async init() {
       try {
@@ -353,6 +390,7 @@ function dashboard() {
       if (id === this.tab) return;
       this.tab = id;
       this.playing = null;
+      this.editing = false;
       if (id === "feed") this.feedFilter = "scored";
       if (id === "matchups") {
         this.week = this.defaultWeek;
@@ -526,6 +564,14 @@ function dashboard() {
     // --- effective scoring: actual, or what-if while custom values are active (shown on every tab) ---
     get simActive() {
       return !this.simIsActual;
+    },
+    startEdit() {
+      this.draft = { ...this.sim };
+      this.editing = true;
+    },
+    applyEdit() {
+      Object.assign(this.sim, this.draft);
+      this.editing = false;
     },
     get simSummary() {
       return [`Goal ${this.fmt(this.sim.goal)}`, `Assist ${this.fmt(this.sim.assist)}`,
