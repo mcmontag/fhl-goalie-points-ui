@@ -22,8 +22,7 @@
     <p class="text-sm font-medium text-sky-700 dark:text-sky-400" x-text="data ? `${data.meta.leagueName} · ${data.meta.season}` : ' '"></p>
     <h1 class="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Goalie Points</h1>
     <p class="mt-2 max-w-2xl text-slate-600 dark:text-slate-400">
-      ESPN doesn't score goals and assists by goalies, so a bot finds them and adds the points as score adjustments.
-      This page shows every one, and what they did to the scoreboard.
+      ESPN doesn't score goalie goals or assists, so we have a bot do it for them.
     </p>
     <div x-show="data" x-cloak class="mt-4 flex flex-wrap items-center gap-2 text-sm">
       <span class="rounded-full bg-white px-3 py-1 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
@@ -37,7 +36,7 @@
     </div>
     <nav x-show="data" x-cloak class="mt-6 flex gap-1 overflow-x-auto text-sm font-medium shadow-[inset_0_-1px_0_theme(colors.slate.200)] dark:shadow-[inset_0_-1px_0_theme(colors.slate.800)]">
       <template x-for="t in tabs" :key="t.id">
-        <button type="button" @click="tab = t.id"
+        <button type="button" @click="selectTab(t.id)"
           class="whitespace-nowrap border-b-2 px-3 py-2 transition-colors"
           :class="tab === t.id ? 'border-sky-600 text-sky-700 dark:border-sky-400 dark:text-sky-300' : 'border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'"
           x-text="t.label"></button>
@@ -83,16 +82,17 @@
     <!-- audit log feed -->
     <section x-show="tab === 'feed'">
       <div class="mb-4 flex flex-wrap items-center gap-2">
-        <h2 class="w-full text-lg font-semibold text-slate-900 sm:mr-auto sm:w-auto dark:text-white">Every goalie point</h2>
+        <h2 class="w-full text-lg font-semibold text-slate-900 sm:mr-auto sm:w-auto dark:text-white">Goalie points (current season)</h2>
         <template x-for="f in feedFilters" :key="f.id">
-          <button type="button" @click="feedFilter = f.id"
+          <button type="button" @click="feedFilter = f.id; playing = null"
             class="rounded-full px-3 py-1 text-sm ring-1 transition-colors"
             :class="feedFilter === f.id ? 'bg-sky-600 text-white ring-sky-600' : 'bg-white text-slate-600 ring-slate-200 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800 dark:hover:bg-slate-800'"
             x-text="f.label"></button>
         </template>
       </div>
 
-      <p x-show="!feed.length" class="py-8 text-center text-slate-500">Nothing here yet.</p>
+      <p x-show="!feed.length" class="py-8 text-center text-slate-500"
+         x-text="feedFilter === 'benched' ? 'No goalie has scored from a fantasy bench this season.' : 'No goalie points yet this season.'"></p>
       <ol class="space-y-3">
         <template x-for="a in feed" :key="a.id">
           <li class="rounded-xl bg-white p-4 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"
@@ -313,10 +313,9 @@ function dashboard() {
       { id: "matchups", label: "Matchups" },
       { id: "sandbox", label: "What-if sandbox" },
     ],
-    feedFilter: "all",
+    feedFilter: "scored",
     playing: null,
     feedFilters: [
-      { id: "all", label: "All" },
       { id: "scored", label: "Scored" },
       { id: "benched", label: "Benched" },
     ],
@@ -331,14 +330,28 @@ function dashboard() {
         data.adjustments ??= [];
         data.matchups ??= [];
         this.data = data;
-        this.week = data.meta.currentWeek ?? Math.max(0, ...data.matchups.map(m => m.week));
-        if (!this.weeks.includes(this.week) && this.weeks.length) this.week = this.weeks[this.weeks.length - 1];
+        this.week = this.defaultWeek;
         this.resetSim();
       } catch (e) {
         this.error = e.message;
       } finally {
         this.loading = false;
       }
+    },
+
+    // switching to the feed resets its filter and switching to matchups resets the week;
+    // the sandbox keeps its settings. Any open highlight video is closed.
+    selectTab(id) {
+      if (id === this.tab) return;
+      this.tab = id;
+      this.playing = null;
+      if (id === "feed") this.feedFilter = "scored";
+      if (id === "matchups") this.week = this.defaultWeek;
+    },
+    get defaultWeek() {
+      const current = this.data.meta.currentWeek;
+      if (this.weeks.includes(current)) return current;
+      return this.weeks.length ? this.weeks[this.weeks.length - 1] : null;
     },
 
     // --- scoring rules ---
@@ -364,8 +377,7 @@ function dashboard() {
 
     // --- feed ---
     get feed() {
-      const list = this.data.adjustments.filter(a =>
-        this.feedFilter === "all" || (this.feedFilter === "benched") === !!a.benched);
+      const list = this.data.adjustments.filter(a => (this.feedFilter === "benched") === !!a.benched);
       return list.slice().sort((x, y) =>
         (y.timestamp ?? y.gameDate ?? "").localeCompare(x.timestamp ?? x.gameDate ?? "")
         || (y.period ?? 0) - (x.period ?? 0)
