@@ -53,8 +53,8 @@
   <template x-if="data">
   <main>
 
-    <!-- matchup flipper alerts (always visible) -->
-    <section class="mb-8">
+    <!-- matchup flipper alerts (not on the sandbox, where "Results that would change" covers it) -->
+    <section x-show="tab !== 'sandbox'" class="mb-8">
       <template x-if="flipped.length">
         <div class="space-y-3">
           <template x-for="m in flipped" :key="m.id">
