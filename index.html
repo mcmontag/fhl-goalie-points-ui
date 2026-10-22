@@ -60,7 +60,7 @@
           <template x-for="m in flipped" :key="m.id">
             <div class="rounded-xl bg-amber-50 p-4 ring-1 ring-amber-300 dark:bg-amber-950/60 dark:ring-amber-800">
               <p class="text-sm font-semibold text-amber-900 dark:text-amber-200">
-                <span aria-hidden="true">⚠</span> Matchup flipped by goalie points · Week <span x-text="m.week"></span><span x-show="!m.final"> (in progress)</span>
+                <span aria-hidden="true">⚠</span> Matchup flipped by goalie points · <span x-text="weekLabel(m.week)"></span><span x-show="!m.final"> (in progress)</span>
               </p>
               <p class="mt-1 text-amber-900 dark:text-amber-100">
                 <b x-text="teamOf(m, m.adjustedLeader).name"></b>
@@ -115,7 +115,7 @@
               </p>
               <p class="mt-1 flex flex-wrap gap-x-3 text-sm text-slate-500 dark:text-slate-400">
                 <span x-text="dateLabel(a.gameDate)"></span>
-                <span x-show="a.week" x-text="'Week ' + a.week"></span>
+                <span x-show="a.week" x-text="weekLabel(a.week)"></span>
                 <button type="button" x-show="clipId(a)" @click="playing = playing === a.id ? null : a.id"
                    :aria-expanded="playing === a.id" class="font-medium text-sky-700 hover:underline dark:text-sky-400"
                    x-text="playing === a.id ? '■ Hide highlight' : '▶ Watch highlight'"></button>
@@ -142,7 +142,15 @@
     <!-- weekly matchups -->
     <section x-show="tab === 'matchups'">
       <div class="mb-4 flex flex-wrap items-center gap-3">
-        <h2 class="w-full text-lg font-semibold text-slate-900 sm:mr-auto sm:w-auto dark:text-white">Matchups: raw vs adjusted</h2>
+        <div class="w-full sm:mr-auto sm:w-auto">
+          <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white">
+            <span x-text="weekLabel(week)"></span>
+            <span class="rounded px-1.5 py-0.5 text-xs font-medium uppercase tracking-wide"
+                  :class="weekFinal(week) ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300' : 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300'"
+                  x-text="weekFinal(week) ? 'Final' : 'In progress'"></span>
+          </h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Raw vs adjusted scores</p>
+        </div>
         <div class="flex w-full items-center sm:w-auto" role="group" aria-label="Choose week">
           <button type="button" @click="stepWeek(-1)" :disabled="!adjacentWeek(-1)" aria-label="Previous week"
             class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">‹</button>
@@ -154,7 +162,7 @@
                 :tabindex="w === week ? 0 : -1"
                 @keydown.left.prevent="stepWeek(-1, true)" @keydown.right.prevent="stepWeek(1, true)"
                 @keydown.home.prevent="pickWeek(weeks[0], true)" @keydown.end.prevent="pickWeek(weeks[weeks.length - 1], true)"
-                class="group flex h-7 min-w-0 items-center justify-center transition-all duration-200 disabled:cursor-default sm:flex-none"
+                class="group flex h-7 min-w-0 items-center justify-center outline-none transition-all duration-200 disabled:cursor-default sm:flex-none"
                 :class="w === week ? 'flex-1 sm:w-7' : 'flex-1 sm:w-4'">
                 <span class="flex-none rounded-full transition-all duration-200" :class="weekDotClass(w)"></span>
               </button>
@@ -164,10 +172,9 @@
             class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">›</button>
         </div>
         <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-          Week
-          <select x-model.number="week" class="rounded-md border-slate-300 bg-white px-2 py-1 text-slate-800 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
+          <select x-model.number="week" aria-label="Week" class="rounded-md border-slate-300 bg-white px-2 py-1 text-slate-800 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
             <template x-for="w in weeks" :key="w">
-              <option :value="w" :selected="w === week" x-text="w"></option>
+              <option :value="w" :selected="w === week" x-text="weekLabel(w)"></option>
             </template>
           </select>
         </label>
@@ -208,7 +215,7 @@
     <!-- what-if sandbox -->
     <section x-show="tab === 'sandbox'">
       <h2 class="text-lg font-semibold text-slate-900 dark:text-white">What if goalie points were worth…</h2>
-      <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Drag the sliders to rescore every goalie point this season. Standings use completed weeks.</p>
+      <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Drag the sliders to rescore every goalie point this season. Standings use completed regular-season weeks.</p>
 
       <div class="mt-4 grid gap-4 rounded-xl bg-white p-4 ring-1 ring-slate-200 sm:grid-cols-2 dark:bg-slate-900 dark:ring-slate-800">
         <template x-for="kind in ['goal', 'assist']" :key="kind">
@@ -273,7 +280,7 @@
           <ul class="space-y-2">
             <template x-for="c in simChanges" :key="c.m.id">
               <li class="rounded-xl bg-white p-3 text-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
-                <p class="text-xs text-slate-500 dark:text-slate-400" x-text="`Week ${c.m.week}` + (c.m.final ? '' : ' · in progress')"></p>
+                <p class="text-xs text-slate-500 dark:text-slate-400" x-text="weekLabel(c.m.week) + (c.m.final ? '' : ' · in progress')"></p>
                 <p>
                   <b x-text="c.winner"></b> <span x-text="c.m.final ? 'would win' : 'would lead'"></span>
                   <span class="tabular" x-text="c.line"></span>
@@ -346,7 +353,10 @@ function dashboard() {
       this.tab = id;
       this.playing = null;
       if (id === "feed") this.feedFilter = "scored";
-      if (id === "matchups") this.week = this.defaultWeek;
+      if (id === "matchups") {
+        this.week = this.defaultWeek;
+        this.focusSelectedWeek();
+      }
     },
     get defaultWeek() {
       const current = this.data.meta.currentWeek;
@@ -416,6 +426,15 @@ function dashboard() {
       const total = this.data.meta.totalWeeks ?? Math.max(0, ...this.weeks);
       return Array.from({ length: total }, (_, i) => i + 1);
     },
+    // matchup periods after the regular season are playoff rounds (two weeks each in our league)
+    weekLabel(w) {
+      const reg = this.data.meta.regularSeasonWeeks;
+      return reg && w > reg ? `Playoffs, round ${w - reg}` : `Week ${w}`;
+    },
+    weekFinal(w) {
+      const ms = this.data.matchups.filter(m => m.week === w);
+      return ms.length > 0 && ms.every(m => m.final);
+    },
     isFirstPlayoffWeek(w) {
       const reg = this.data.meta.regularSeasonWeeks;
       return reg && w === reg + 1 && w > 1;
@@ -428,8 +447,7 @@ function dashboard() {
     },
     weekTitle(w) {
       const label = { future: "not played yet", flipped: "a matchup was flipped by goalie points", final: "final", live: "in progress" };
-      const playoff = this.data.meta.regularSeasonWeeks && w > this.data.meta.regularSeasonWeeks ? " (playoffs)" : "";
-      return `Week ${w}${playoff}: ${label[this.weekState(w)]}`;
+      return `${this.weekLabel(w)}: ${label[this.weekState(w)]}`;
     },
     weekDotClass(w) {
       const state = this.weekState(w);
@@ -458,7 +476,11 @@ function dashboard() {
       if (w == null) return;
       this.week = w;
       // keyboard navigation: keep focus on the newly selected week
-      if (focus) this.$nextTick(() => this.$root.querySelector("[aria-label='Choose week'] [aria-current='true']")?.focus());
+      if (focus) this.focusSelectedWeek();
+    },
+    // focus the selected week's pill (no scroll), so the arrow keys work right away
+    focusSelectedWeek() {
+      this.$nextTick(() => this.$root.querySelector("[aria-label='Choose week'] [aria-current='true']")?.focus({ preventScroll: true }));
     },
     get weekMatchups() {
       return this.data.matchups.filter(m => m.week === this.week);
@@ -501,7 +523,7 @@ function dashboard() {
       const rows = {};
       const row = t => (rows[t.id] ??= { id: t.id, name: t.name, w: 0, l: 0, t: 0, pf: 0 });
       for (const m of this.data.matchups) {
-        if (!m.final) continue;
+        if (!m.final || m.playoff) continue;
         const h = row(m.homeTeam), a = row(m.awayTeam);
         const hs = scoreOf(m, "HOME"), as = scoreOf(m, "AWAY");
         h.pf += hs; a.pf += as;
