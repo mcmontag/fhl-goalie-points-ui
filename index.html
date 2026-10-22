@@ -144,7 +144,7 @@
       <div class="mb-4 flex flex-wrap items-center gap-3">
         <div class="w-full sm:mr-auto sm:w-auto">
           <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white">
-            <span x-text="weekLabel(week)"></span>
+            <span x-text="'Matchups: ' + weekLabel(week)"></span>
             <span class="rounded px-1.5 py-0.5 text-xs font-medium uppercase tracking-wide"
                   :class="weekFinal(week) ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300' : 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300'"
                   x-text="weekFinal(week) ? 'Final' : 'In progress'"></span>
@@ -237,7 +237,8 @@
           Count goalies who were on the bench
         </label>
         <div class="sm:col-span-2">
-          <button type="button" @click="resetSim()" class="text-sm font-medium text-sky-700 hover:underline dark:text-sky-400">Reset to actual scoring</button>
+          <!-- hidden (but still taking its space, so the card doesn't resize) while nothing differs from actual scoring -->
+          <button type="button" @click="resetSim()" :class="simIsActual && 'invisible'" class="text-sm font-medium text-sky-700 hover:underline dark:text-sky-400">Reset to actual scoring</button>
         </div>
       </div>
 
@@ -501,6 +502,10 @@ function dashboard() {
       this.sim.assist = this.rules.assist ?? 0;
       this.sim.bonuses = true;
       this.sim.benched = false;
+    },
+    get simIsActual() {
+      return this.sim.goal === (this.rules.goal ?? 0) && this.sim.assist === (this.rules.assist ?? 0)
+        && this.sim.bonuses && !this.sim.benched;
     },
     simValue(a) {
       if (a.benched && !this.sim.benched) return 0;
