@@ -135,12 +135,13 @@
           <button type="button" @click="stepWeek(-1)" :disabled="!adjacentWeek(-1)" aria-label="Previous week"
             class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">‹</button>
           <template x-for="w in allWeeks" :key="w">
-            <span class="flex min-w-0 flex-1 items-center sm:flex-none">
-              <span x-show="isFirstPlayoffWeek(w)" class="mx-0.5 h-3 w-px flex-none bg-slate-300 sm:mx-1 dark:bg-slate-700" aria-hidden="true"></span>
+            <span class="relative flex min-w-0 items-center sm:flex-none" :class="[w === week ? 'flex-[1.8]' : 'flex-1', isFirstPlayoffWeek(w) && 'pl-2']">
+              <span x-show="isFirstPlayoffWeek(w)" class="absolute left-1 top-1/2 h-3 w-px -translate-y-1/2 bg-slate-300 dark:bg-slate-700" aria-hidden="true"></span>
               <button type="button" @click="week = w" :disabled="!weeks.includes(w)"
                 :aria-label="weekTitle(w)" :title="weekTitle(w)" :aria-current="w === week ? 'true' : null"
-                class="group flex h-7 min-w-0 flex-1 items-center justify-center disabled:cursor-default sm:w-4 sm:flex-none">
-                <span class="h-1.5 w-1.5 flex-none rounded-full transition sm:h-2.5 sm:w-2.5" :class="weekDotClass(w)"></span>
+                class="group flex h-7 min-w-0 items-center justify-center transition-all duration-200 disabled:cursor-default sm:flex-none"
+                :class="w === week ? 'flex-1 sm:w-7' : 'flex-1 sm:w-4'">
+                <span class="flex-none rounded-full transition-all duration-200" :class="weekDotClass(w)"></span>
               </button>
             </span>
           </template>
@@ -393,16 +394,20 @@ function dashboard() {
       return `Week ${w}${playoff}: ${label[this.weekState(w)]}`;
     },
     weekDotClass(w) {
+      const state = this.weekState(w);
+      if (w === this.week) {
+        // the selected week is a wider pill in its own slot, so it never crowds its neighbours
+        const fill = state === "flipped" ? "bg-amber-400" : "bg-sky-600 dark:bg-sky-400";
+        return `h-1.5 w-3 sm:h-2.5 sm:w-5 ${fill}`;
+      }
       const fill = {
         future: "ring-1 ring-inset ring-slate-300 dark:ring-slate-700",
-        flipped: "bg-amber-400 group-hover:scale-125",
-        final: "bg-slate-400 group-hover:scale-125 dark:bg-slate-500",
-        live: "bg-sky-300 group-hover:scale-125 dark:bg-sky-700",
-      }[this.weekState(w)];
-      const selected = w === this.week
-        ? " scale-125 ring-2 ring-sky-600 ring-offset-2 ring-offset-slate-50 dark:ring-sky-400 dark:ring-offset-slate-950"
-        : "";
-      return fill + selected;
+        flipped: "bg-amber-400",
+        final: "bg-slate-400 dark:bg-slate-500",
+        live: "ring-[1.5px] ring-inset ring-sky-600 dark:ring-sky-400",
+      }[state];
+      const hover = state === "future" ? "" : " group-hover:scale-125";
+      return `h-1.5 w-1.5 sm:h-2.5 sm:w-2.5 ${fill}${hover}`;
     },
     adjacentWeek(dir) {
       const i = this.weeks.indexOf(this.week);
