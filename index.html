@@ -53,6 +53,18 @@
   <template x-if="data">
   <main>
 
+    <!-- what-if scoring, pinned while custom values are active -->
+    <div x-show="simActive && tab !== 'sandbox'" x-cloak class="sticky z-10 -mx-1 mb-6 bg-slate-50 px-1 pb-1 pt-2 dark:bg-slate-950" style="top: env(safe-area-inset-top, 0px)">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl bg-violet-50 px-4 py-2 text-sm text-violet-900 shadow-sm ring-1 ring-violet-200 dark:bg-violet-950 dark:text-violet-100 dark:ring-violet-800">
+        <b>What-if scoring</b>
+        <span x-text="simSummary"></span>
+        <span class="ml-auto flex gap-3 font-medium">
+          <button type="button" @click="selectTab('sandbox')" class="hover:underline">Edit</button>
+          <button type="button" @click="resetSim()" class="hover:underline">Reset</button>
+        </span>
+      </div>
+    </div>
+
     <!-- audit log feed -->
     <section x-show="tab === 'feed'">
       <div class="mb-4 flex flex-wrap items-center gap-2">
@@ -98,8 +110,8 @@
               </p>
             </div>
             <p class="flex-none text-lg font-bold tabular"
-               :class="a.benched ? 'text-slate-400 line-through decoration-2' : 'text-emerald-600 dark:text-emerald-400'"
-               x-text="'+' + fmt(a.benched ? wouldBe(a) : a.pointsAdded)"></p>
+               :class="isStruck(a) ? 'text-slate-400 line-through decoration-2' : simActive ? 'text-violet-600 dark:text-violet-400' : 'text-emerald-600 dark:text-emerald-400'"
+               x-text="'+' + fmt(effPoints(a))"></p>
            </div>
            <!-- the player only loads once someone asks for it -->
            <template x-if="playing === a.id && clipId(a)">
@@ -166,11 +178,14 @@
               <div class="grid gap-3 sm:grid-cols-2">
                 <template x-for="m in group.items" :key="m.id">
               <article class="rounded-xl bg-white p-4 ring-1 dark:bg-slate-900"
-                       :class="m.flipped ? 'ring-2 ring-amber-400 dark:ring-amber-600' : 'ring-slate-200 dark:ring-slate-800'">
+                       :class="isFlipped(m) ? 'ring-2 ring-amber-400 dark:ring-amber-600' : 'ring-slate-200 dark:ring-slate-800'">
                 <div class="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                   <span x-text="(group.showWeek ? weekLabel(m.week) + ' · ' : '') + (m.final ? 'Final' : 'In progress')"></span>
                   <span x-show="m.playoff">· Playoffs</span>
-                  <span x-show="m.flipped && !group.showWeek" class="ml-auto rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Flipped</span>
+                  <span class="ml-auto flex gap-1">
+                    <span x-show="simActive" class="rounded bg-violet-100 px-1.5 py-0.5 text-violet-800 dark:bg-violet-900 dark:text-violet-200">What-if</span>
+                    <span x-show="isFlipped(m) && !group.showWeek" class="rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Flipped</span>
+                  </span>
                 </div>
                 <table class="w-full text-sm">
                   <thead class="text-xs text-slate-500 dark:text-slate-400">
@@ -178,13 +193,13 @@
                   </thead>
                   <tbody>
                     <template x-for="side in ['HOME', 'AWAY']" :key="side">
-                      <tr :class="m.adjustedLeader === side ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'">
+                      <tr :class="effLeader(m) === side ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'">
                         <td class="py-1 pr-2" x-text="teamOf(m, side).name"></td>
                         <td class="py-1 pl-3 text-right tabular" :class="m.rawLeader === side && 'underline decoration-slate-300 underline-offset-4 dark:decoration-slate-600'" x-text="score(teamOf(m, side).rawScore)"></td>
                         <td class="py-1 pl-3 text-right tabular"
-                            :class="teamOf(m, side).adjustment ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-600'"
-                            x-text="teamOf(m, side).adjustment ? '+' + fmt(teamOf(m, side).adjustment) : '–'"></td>
-                        <td class="py-1 pl-3 text-right tabular" x-text="score(teamOf(m, side).adjustedScore)"></td>
+                            :class="!effBonus(m, side) ? 'text-slate-400 dark:text-slate-600' : simActive ? 'text-violet-600 dark:text-violet-400' : 'text-emerald-600 dark:text-emerald-400'"
+                            x-text="effBonus(m, side) ? (effBonus(m, side) > 0 ? '+' : '') + fmt(effBonus(m, side)) : '–'"></td>
+                        <td class="py-1 pl-3 text-right tabular" x-text="score(effScore(m, side))"></td>
                       </tr>
                     </template>
                   </tbody>
@@ -200,7 +215,7 @@
     <!-- what-if sandbox -->
     <section x-show="tab === 'sandbox'">
       <h2 class="text-lg font-semibold text-slate-900 dark:text-white">What if goalie points were worth…</h2>
-      <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Drag the sliders to rescore every goalie point this season. Standings use completed regular-season weeks.</p>
+      <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Drag the sliders to rescore every goalie point this season. Standings use completed regular-season weeks. Your values carry over to the other tabs until you reset them.</p>
 
       <div class="mt-4 grid gap-4 rounded-xl bg-white p-4 ring-1 ring-slate-200 sm:grid-cols-2 dark:bg-slate-900 dark:ring-slate-800">
         <template x-for="kind in ['goal', 'assist']" :key="kind">
@@ -436,7 +451,7 @@ function dashboard() {
     weekState(w) {
       const ms = this.data.matchups.filter(m => m.week === w);
       if (!ms.length) return "future";
-      if (ms.some(m => m.flipped)) return "flipped";
+      if (ms.some(m => this.isFlipped(m))) return "flipped";
       return ms.every(m => m.final) ? "final" : "live";
     },
     weekTitle(w) {
@@ -488,7 +503,7 @@ function dashboard() {
       return this.data.matchups.filter(m => m.week === this.week);
     },
     get flipped() {
-      return this.data.matchups.filter(m => m.flipped).sort((a, b) => b.week - a.week);
+      return this.data.matchups.filter(m => this.isFlipped(m)).sort((a, b) => b.week - a.week);
     },
     teamOf(m, side) {
       return side === "AWAY" ? m.awayTeam : m.homeTeam;
@@ -507,6 +522,34 @@ function dashboard() {
     get simIsActual() {
       return this.sim.goal === (this.rules.goal ?? 0) && this.sim.assist === (this.rules.assist ?? 0)
         && this.sim.bonuses && !this.sim.benched;
+    },
+    // --- effective scoring: actual, or what-if while custom values are active (shown on every tab) ---
+    get simActive() {
+      return !this.simIsActual;
+    },
+    get simSummary() {
+      return [`Goal ${this.fmt(this.sim.goal)}`, `Assist ${this.fmt(this.sim.assist)}`,
+        !this.sim.bonuses && "no PP/SH bonus", this.sim.benched && "benched goalies count"].filter(Boolean).join(" · ");
+    },
+    effScore(m, side) {
+      return this.simActive ? this.simScore(m, side) : this.teamOf(m, side).adjustedScore;
+    },
+    effBonus(m, side) {
+      return Math.round((this.effScore(m, side) - this.teamOf(m, side).rawScore) * 100) / 100;
+    },
+    effLeader(m) {
+      return this.simActive ? this.leaderBy(m, (mm, side) => this.simScore(mm, side)) : m.adjustedLeader;
+    },
+    isFlipped(m) {
+      return this.simActive ? this.effLeader(m) !== m.rawLeader : m.flipped;
+    },
+    // a benched point shows what it would have been worth (struck through unless benched goalies count)
+    effPoints(a) {
+      if (!this.simActive) return a.benched ? this.wouldBe(a) : a.pointsAdded;
+      return Number(this.sim[a.eventType] ?? 0) + (this.sim.bonuses ? this.bonus(a) : 0);
+    },
+    isStruck(a) {
+      return a.benched && !(this.simActive && this.sim.benched);
     },
     simValue(a) {
       if (a.benched && !this.sim.benched) return 0;
