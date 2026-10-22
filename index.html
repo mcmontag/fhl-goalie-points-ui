@@ -201,25 +201,30 @@
         </label>
       </div>
 
+      <div x-show="tab === 'flips'" class="mb-4">
+        <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Flipped matchups</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Every matchup decided by goalie points this season</p>
+      </div>
+      <p x-show="tab === 'flips' && !flipped.length" class="rounded-xl bg-white px-4 py-3 text-sm text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800">None yet this season.</p>
       <template x-for="group in cardGroups" :key="group.id">
-        <div>
-          <template x-if="group.title">
-            <div class="mb-4">
-              <h2 class="text-lg font-semibold text-slate-900 dark:text-white" x-text="group.title"></h2>
-              <p class="text-sm text-slate-500 dark:text-slate-400" x-text="group.subtitle"></p>
-            </div>
+        <div :class="group.flips && 'mb-6'">
+          <!-- on Flips, one group per matchup -->
+          <template x-if="group.flips">
+            <h3 class="mb-2 flex flex-wrap items-baseline gap-x-2 text-sm font-semibold text-slate-900 dark:text-white">
+              <span x-text="weekLabel(group.week)"></span>
+              <span class="font-normal text-slate-500 dark:text-slate-400" x-text="spanLabel(group.week)"></span>
+            </h3>
           </template>
-          <p x-show="!group.items.length && group.empty" class="rounded-xl bg-white px-4 py-3 text-sm text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800" x-text="group.empty"></p>
               <div class="grid gap-3 sm:grid-cols-2">
                 <template x-for="m in group.items" :key="m.id">
               <article class="rounded-xl bg-white p-4 ring-1 dark:bg-slate-900"
                        :class="isFlipped(m) ? 'ring-2 ring-amber-400 dark:ring-amber-600' : 'ring-slate-200 dark:ring-slate-800'">
                 <div class="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                  <span x-text="(group.showWeek ? weekLabel(m.week) + ' · ' : '') + (m.final ? 'Final' : 'In progress')"></span>
+                  <span x-text="m.final ? 'Final' : 'In progress'"></span>
                   <span x-show="m.playoff">· Playoffs</span>
                   <span class="ml-auto flex gap-1">
                     <span x-show="simActive" class="rounded bg-violet-100 px-1.5 py-0.5 text-violet-800 dark:bg-violet-900 dark:text-violet-200">What-if</span>
-                    <span x-show="isFlipped(m) && !group.showWeek" class="rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Flipped</span>
+                    <span x-show="isFlipped(m) && !group.flips" class="rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Flipped</span>
                   </span>
                 </div>
                 <table class="w-full text-sm">
@@ -533,8 +538,9 @@ function dashboard() {
     },
     get cardGroups() {
       if (this.tab === "flips") {
-        return [{ id: "flipped", title: "Flipped matchups", subtitle: "Every matchup decided by goalie points this season",
-          items: this.flipped, showWeek: true, empty: "None yet this season." }];
+        // one group per matchup, most recent first (flipped is already sorted that way)
+        const weeks = [...new Set(this.flipped.map(m => m.week))];
+        return weeks.map(w => ({ id: `flips-${w}`, week: w, flips: true, items: this.flipped.filter(m => m.week === w) }));
       }
       return [{ id: "week", items: this.weekMatchups }];
     },
