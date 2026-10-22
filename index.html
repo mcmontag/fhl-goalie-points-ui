@@ -53,32 +53,6 @@
   <template x-if="data">
   <main>
 
-    <!-- matchup flipper alerts (not on the sandbox, where "Results that would change" covers it) -->
-    <section x-show="tab !== 'sandbox'" class="mb-8">
-      <template x-if="flipped.length">
-        <div class="space-y-3">
-          <template x-for="m in flipped" :key="m.id">
-            <div class="rounded-xl bg-amber-50 p-4 ring-1 ring-amber-300 dark:bg-amber-950/60 dark:ring-amber-800">
-              <p class="text-sm font-semibold text-amber-900 dark:text-amber-200">
-                <span aria-hidden="true">⚠</span> Matchup flipped by goalie points · <span x-text="weekLabel(m.week)"></span><span x-show="!m.final"> (in progress)</span>
-              </p>
-              <p class="mt-1 text-amber-900 dark:text-amber-100">
-                <b x-text="teamOf(m, m.adjustedLeader).name"></b>
-                <span x-text="m.final ? 'won' : 'leads'"></span>
-                <span class="tabular" x-text="score(teamOf(m, m.adjustedLeader).adjustedScore) + '–' + score(teamOf(m, other(m.adjustedLeader)).adjustedScore)"></span><span x-show="m.rawLeader !== 'TIE'">; without goalie points, <b x-text="teamOf(m, m.rawLeader).name"></b> would have <span x-text="m.final ? 'won' : 'led'"></span>
-                <span class="tabular" x-text="score(teamOf(m, m.rawLeader).rawScore) + '–' + score(teamOf(m, other(m.rawLeader)).rawScore)"></span>.</span><span x-show="m.rawLeader === 'TIE'">; without goalie points it was a tie.</span>
-              </p>
-            </div>
-          </template>
-        </div>
-      </template>
-      <template x-if="!flipped.length">
-        <p class="rounded-xl bg-white px-4 py-3 text-sm text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800">
-          No matchup has been flipped by goalie points this season. Yet.
-        </p>
-      </template>
-    </section>
-
     <!-- audit log feed -->
     <section x-show="tab === 'feed'">
       <div class="mb-4 flex flex-wrap items-center gap-2">
@@ -144,15 +118,15 @@
       <div class="mb-4 flex flex-wrap items-center gap-3">
         <div class="w-full sm:mr-auto sm:w-auto">
           <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white">
-            <span x-text="'Matchups: ' + weekLabel(week)"></span>
+            <span x-text="weekLabel(week)"></span>
             <span class="rounded px-1.5 py-0.5 text-xs font-medium uppercase tracking-wide"
                   :class="weekFinal(week) ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300' : 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300'"
                   x-text="weekFinal(week) ? 'Final' : 'In progress'"></span>
           </h2>
           <p class="text-sm text-slate-500 dark:text-slate-400" x-text="[spanLabel(week), 'Raw vs adjusted scores'].filter(Boolean).join(' · ')"></p>
         </div>
-        <div class="flex w-full items-center sm:w-auto" role="group" aria-label="Choose week">
-          <button type="button" @click="stepWeek(-1)" :disabled="!adjacentWeek(-1)" aria-label="Previous week"
+        <div class="flex w-full items-center sm:w-auto" role="group" aria-label="Choose matchup">
+          <button type="button" @click="stepWeek(-1)" :disabled="!adjacentWeek(-1)" aria-label="Previous matchup"
             class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">‹</button>
           <template x-for="w in allWeeks" :key="w">
             <span class="relative flex min-w-0 items-center sm:flex-none" :class="[w === week ? 'flex-[1.8]' : 'flex-1', isFirstPlayoffWeek(w) && 'pl-2']">
@@ -168,11 +142,11 @@
               </button>
             </span>
           </template>
-          <button type="button" @click="stepWeek(1)" :disabled="!adjacentWeek(1)" aria-label="Next week"
+          <button type="button" @click="stepWeek(1)" :disabled="!adjacentWeek(1)" aria-label="Next matchup"
             class="rounded px-1.5 text-lg leading-none text-slate-500 hover:text-slate-900 disabled:opacity-30 disabled:hover:text-slate-500 dark:text-slate-400 dark:hover:text-white">›</button>
         </div>
         <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-          <select x-model.number="week" aria-label="Week" class="rounded-md border-slate-300 bg-white px-2 py-1 text-slate-800 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
+          <select x-model.number="week" aria-label="Matchup" class="rounded-md border-slate-300 bg-white px-2 py-1 text-slate-800 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
             <template x-for="w in weeks" :key="w">
               <option :value="w" :selected="w === week" x-text="weekLabel(w)"></option>
             </template>
@@ -180,36 +154,47 @@
         </label>
       </div>
 
-      <div class="grid gap-3 sm:grid-cols-2">
-        <template x-for="m in weekMatchups" :key="m.id">
-          <article class="rounded-xl bg-white p-4 ring-1 dark:bg-slate-900"
-                   :class="m.flipped ? 'ring-2 ring-amber-400 dark:ring-amber-600' : 'ring-slate-200 dark:ring-slate-800'">
-            <div class="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
-              <span x-text="m.final ? 'Final' : 'In progress'"></span>
-              <span x-show="m.playoff">· Playoffs</span>
-              <span x-show="m.flipped" class="ml-auto rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Flipped</span>
+      <template x-for="group in cardGroups" :key="group.id">
+        <div :class="group.title && 'mt-10'">
+          <template x-if="group.title">
+            <div class="mb-4">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white" x-text="group.title"></h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400" x-text="group.subtitle"></p>
             </div>
-            <table class="w-full text-sm">
-              <thead class="text-xs text-slate-500 dark:text-slate-400">
-                <tr><th class="pb-1 text-left font-normal">Team</th><th class="pb-1 text-right font-normal">Raw</th><th class="pb-1 text-right font-normal">Goalie</th><th class="pb-1 text-right font-normal">Adjusted</th></tr>
-              </thead>
-              <tbody>
-                <template x-for="side in ['HOME', 'AWAY']" :key="side">
-                  <tr :class="m.adjustedLeader === side ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'">
-                    <td class="py-1 pr-2" x-text="teamOf(m, side).name"></td>
-                    <td class="py-1 text-right tabular" :class="m.rawLeader === side && 'underline decoration-slate-300 underline-offset-4 dark:decoration-slate-600'" x-text="score(teamOf(m, side).rawScore)"></td>
-                    <td class="py-1 text-right tabular"
-                        :class="teamOf(m, side).adjustment ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-600'"
-                        x-text="teamOf(m, side).adjustment ? '+' + fmt(teamOf(m, side).adjustment) : '–'"></td>
-                    <td class="py-1 text-right tabular" x-text="score(teamOf(m, side).adjustedScore)"></td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-          </article>
-        </template>
-      </div>
-      <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">Bold is the adjusted leader; the underlined raw score is who led before goalie points.</p>
+          </template>
+          <p x-show="!group.items.length && group.empty" class="rounded-xl bg-white px-4 py-3 text-sm text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800" x-text="group.empty"></p>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <template x-for="m in group.items" :key="m.id">
+              <article class="rounded-xl bg-white p-4 ring-1 dark:bg-slate-900"
+                       :class="m.flipped ? 'ring-2 ring-amber-400 dark:ring-amber-600' : 'ring-slate-200 dark:ring-slate-800'">
+                <div class="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                  <span x-text="(group.showWeek ? weekLabel(m.week) + ' · ' : '') + (m.final ? 'Final' : 'In progress')"></span>
+                  <span x-show="m.playoff">· Playoffs</span>
+                  <span x-show="m.flipped && !group.showWeek" class="ml-auto rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Flipped</span>
+                </div>
+                <table class="w-full text-sm">
+                  <thead class="text-xs text-slate-500 dark:text-slate-400">
+                    <tr><th class="pb-1 text-left font-normal">Team</th><th class="pb-1 pl-3 text-right font-normal">Raw</th><th class="pb-1 pl-3 text-right font-normal">Goalie</th><th class="pb-1 pl-3 text-right font-normal">Adjusted</th></tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="side in ['HOME', 'AWAY']" :key="side">
+                      <tr :class="m.adjustedLeader === side ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'">
+                        <td class="py-1 pr-2" x-text="teamOf(m, side).name"></td>
+                        <td class="py-1 pl-3 text-right tabular" :class="m.rawLeader === side && 'underline decoration-slate-300 underline-offset-4 dark:decoration-slate-600'" x-text="score(teamOf(m, side).rawScore)"></td>
+                        <td class="py-1 pl-3 text-right tabular"
+                            :class="teamOf(m, side).adjustment ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-600'"
+                            x-text="teamOf(m, side).adjustment ? '+' + fmt(teamOf(m, side).adjustment) : '–'"></td>
+                        <td class="py-1 pl-3 text-right tabular" x-text="score(teamOf(m, side).adjustedScore)"></td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </article>
+            </template>
+          </div>
+          <p x-show="group.id === 'week'" class="mt-3 text-xs text-slate-500 dark:text-slate-400">Bold is the adjusted leader; the underlined raw score is who led before goalie points.</p>
+        </div>
+      </template>
     </section>
 
     <!-- what-if sandbox -->
@@ -430,7 +415,7 @@ function dashboard() {
     // matchup periods after the regular season are playoff rounds
     weekLabel(w) {
       const reg = this.data.meta.regularSeasonWeeks;
-      return reg && w > reg ? `Playoffs, round ${w - reg}` : `Week ${w}`;
+      return reg && w > reg ? `Playoffs, round ${w - reg}` : `Matchup ${w}`;
     },
     // a matchup's dates; it isn't always one week (breaks, playoff rounds), so show the length when longer
     spanLabel(w) {
@@ -455,7 +440,7 @@ function dashboard() {
       return ms.every(m => m.final) ? "final" : "live";
     },
     weekTitle(w) {
-      const label = { future: "not played yet", flipped: "a matchup was flipped by goalie points", final: "final", live: "in progress" };
+      const label = { future: "not played yet", flipped: "goalie points flipped a result", final: "final", live: "in progress" };
       const span = this.spanLabel(w);
       return `${this.weekLabel(w)}: ${label[this.weekState(w)]}` + (span ? ` (${span})` : "");
     },
@@ -490,7 +475,14 @@ function dashboard() {
     },
     // focus the selected week's pill (no scroll), so the arrow keys work right away
     focusSelectedWeek() {
-      this.$nextTick(() => this.$root.querySelector("[aria-label='Choose week'] [aria-current='true']")?.focus({ preventScroll: true }));
+      this.$nextTick(() => this.$root.querySelector("[aria-label='Choose matchup'] [aria-current='true']")?.focus({ preventScroll: true }));
+    },
+    get cardGroups() {
+      return [
+        { id: "week", items: this.weekMatchups },
+        { id: "flipped", title: "Flipped matchups", subtitle: "Every matchup decided by goalie points this season",
+          items: this.flipped, showWeek: true, empty: "None yet this season." },
+      ];
     },
     get weekMatchups() {
       return this.data.matchups.filter(m => m.week === this.week);
