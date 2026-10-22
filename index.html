@@ -142,6 +142,10 @@
                    x-text="playing === a.id ? '■ Hide highlight' : '▶ Watch highlight'"></button>
                 <a x-show="safeHighlight(a)" :href="safeHighlight(a)" target="_blank" rel="noopener"
                    class="text-sky-700 hover:underline dark:text-sky-400">NHL.com ↗</a>
+                <template x-if="auditUrl(a)">
+                  <a :href="auditUrl(a)" target="_blank" rel="noopener"
+                     class="text-sky-700 hover:underline dark:text-sky-400" x-text="`Audit log #${a.auditIssue} ↗`"></a>
+                </template>
               </p>
             </div>
             <p class="flex-none text-lg font-bold tabular"
@@ -443,6 +447,12 @@ function dashboard() {
     },
     safeHighlight(a) {
       return /^https:\/\/([a-z0-9-]+\.)*nhl\.com\//i.test(a.highlightUrl ?? "") ? a.highlightUrl : null;
+    },
+    // the public issue that logged this goalie point's adjustment
+    auditUrl(a) {
+      const base = this.data.meta.auditIssuesUrl ?? "";
+      if (!/^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/issues$/.test(base) || !Number.isInteger(a.auditIssue)) return null;
+      return `${base}/${a.auditIssue}`;
     },
     // NHL share links end in the Brightcove video id; the NHL's own player embeds it
     clipId(a) {
