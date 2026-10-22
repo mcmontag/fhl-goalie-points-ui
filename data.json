@@ -1,0 +1,523 @@
+{
+ "meta": {
+  "lastRunUtc": "2026-10-22T14:49:02Z",
+  "leagueName": "New League Who Dis",
+  "season": "2026-2027",
+  "currentScoringPeriod": 24,
+  "currentWeek": 4,
+  "scoringRules": {
+   "goal": 3.0,
+   "assist": 2.0,
+   "strengthBonus": {
+    "goal": {
+     "pp": 1.0,
+     "sh": 2.0
+    },
+    "assist": {
+     "pp": 0.5,
+     "sh": 1.0
+    }
+   }
+  }
+ },
+ "adjustments": [
+  {
+   "id": "2026020010-1036-8478048-goal",
+   "timestamp": "2026-10-01T23:00:00Z",
+   "gameDate": "2026-10-01",
+   "week": 1,
+   "scoringPeriod": 3,
+   "matchupId": 4,
+   "goalieName": "Igor Shesterkin",
+   "goalieId": 8478048,
+   "nhlTeam": "NYR",
+   "headshotUrl": "https://assets.nhle.com/mugs/nhl/20262027/NYR/8478048.png",
+   "fantasyTeamId": 8,
+   "fantasyTeamName": "Columbus Landsharks",
+   "eventType": "goal",
+   "strength": "ev",
+   "pointsAdded": 3.0,
+   "benched": false,
+   "gameId": 2026020010,
+   "eventId": 1036,
+   "period": 3,
+   "timeInPeriod": "17:26",
+   "highlightUrl": "https://nhl.com/video/tbl-nyr-shesterkin-scores-empty-net-goal-6406081254112",
+   "issueNumber": 4
+  },
+  {
+   "id": "2026020020-458-8480981-assist",
+   "timestamp": "2026-10-03T01:00:00Z",
+   "gameDate": "2026-10-02",
+   "week": 1,
+   "scoringPeriod": 4,
+   "matchupId": 1,
+   "goalieName": "Joel Hofer",
+   "goalieId": 8480981,
+   "nhlTeam": "STL",
+   "headshotUrl": "https://assets.nhle.com/mugs/nhl/20262027/STL/8480981.png",
+   "fantasyTeamId": 3,
+   "fantasyTeamName": "Nicholas's Nifty Team",
+   "eventType": "assist",
+   "strength": "ev",
+   "pointsAdded": 2.0,
+   "benched": false,
+   "gameId": 2026020020,
+   "eventId": 458,
+   "period": 3,
+   "timeInPeriod": "17:52",
+   "highlightUrl": "https://nhl.com/video/pius-suter-with-a-goal-vs-dallas-stars-6406155078112",
+   "issueNumber": 1
+  },
+  {
+   "id": "2026020036-1205-8478048-assist",
+   "timestamp": "2026-10-04T22:00:00Z",
+   "gameDate": "2026-10-04",
+   "week": 1,
+   "scoringPeriod": 6,
+   "matchupId": 4,
+   "goalieName": "Igor Shesterkin",
+   "goalieId": 8478048,
+   "nhlTeam": "NYR",
+   "headshotUrl": "https://assets.nhle.com/mugs/nhl/20262027/NYR/8478048.png",
+   "fantasyTeamId": 8,
+   "fantasyTeamName": "Columbus Landsharks",
+   "eventType": "assist",
+   "strength": "ev",
+   "pointsAdded": 2.0,
+   "benched": false,
+   "gameId": 2026020036,
+   "eventId": 1205,
+   "period": 3,
+   "timeInPeriod": "18:45",
+   "highlightUrl": "https://nhl.com/video/uta-nyr-tolvanen-scores-empty-net-goal-6406230452112",
+   "issueNumber": 4
+  },
+  {
+   "id": "2026020121-422-8480313-assist",
+   "timestamp": "2026-10-17T17:00:00Z",
+   "gameDate": "2026-10-17",
+   "week": 3,
+   "scoringPeriod": 19,
+   "matchupId": 11,
+   "goalieName": "Logan Thompson",
+   "goalieId": 8480313,
+   "nhlTeam": "WSH",
+   "headshotUrl": "https://assets.nhle.com/mugs/nhl/20262027/WSH/8480313.png",
+   "fantasyTeamId": 4,
+   "fantasyTeamName": "Knies Guys Finish 1st",
+   "eventType": "assist",
+   "strength": "pp",
+   "pointsAdded": 2.5,
+   "benched": false,
+   "gameId": 2026020121,
+   "eventId": 422,
+   "period": 1,
+   "timeInPeriod": "16:42",
+   "highlightUrl": "https://nhl.com/video/njd-wsh-leonard-scores-ppg-against-jake-allen-6407019644112",
+   "issueNumber": 5
+  }
+ ],
+ "matchups": [
+  {
+   "id": 1,
+   "week": 1,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 3,
+    "name": "Nicholas's Nifty Team",
+    "rawScore": 90.25,
+    "adjustedScore": 92.25,
+    "adjustment": 2.0,
+    "goaliePoints": 2.0
+   },
+   "awayTeam": {
+    "id": 7,
+    "name": "Justin Danforth for Hart",
+    "rawScore": 157.55,
+    "adjustedScore": 157.55,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 2,
+   "week": 1,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 5,
+    "name": "Fresh Prince",
+    "rawScore": 109.15,
+    "adjustedScore": 109.15,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 1,
+    "name": "McDavid, et al. 2026",
+    "rawScore": 149.4,
+    "adjustedScore": 149.4,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 3,
+   "week": 1,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 2,
+    "name": "it me",
+    "rawScore": 153.95,
+    "adjustedScore": 153.95,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 6,
+    "name": "Let's do that hockey",
+    "rawScore": 136.9,
+    "adjustedScore": 136.9,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 4,
+   "week": 1,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 4,
+    "name": "Knies Guys Finish 1st",
+    "rawScore": 142.45,
+    "adjustedScore": 142.45,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 8,
+    "name": "Columbus Landsharks",
+    "rawScore": 133.25,
+    "adjustedScore": 138.25,
+    "adjustment": 5.0,
+    "goaliePoints": 5.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 5,
+   "week": 2,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 7,
+    "name": "Justin Danforth for Hart",
+    "rawScore": 135.6,
+    "adjustedScore": 135.6,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 1,
+    "name": "McDavid, et al. 2026",
+    "rawScore": 184.8,
+    "adjustedScore": 184.8,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 6,
+   "week": 2,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 5,
+    "name": "Fresh Prince",
+    "rawScore": 120.6,
+    "adjustedScore": 120.6,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 3,
+    "name": "Nicholas's Nifty Team",
+    "rawScore": 119.35,
+    "adjustedScore": 119.35,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 7,
+   "week": 2,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 6,
+    "name": "Let's do that hockey",
+    "rawScore": 177.0,
+    "adjustedScore": 177.0,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 8,
+    "name": "Columbus Landsharks",
+    "rawScore": 121.05,
+    "adjustedScore": 121.05,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 8,
+   "week": 2,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 4,
+    "name": "Knies Guys Finish 1st",
+    "rawScore": 160.7,
+    "adjustedScore": 160.7,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 2,
+    "name": "it me",
+    "rawScore": 149.2,
+    "adjustedScore": 149.2,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 9,
+   "week": 3,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 5,
+    "name": "Fresh Prince",
+    "rawScore": 144.85,
+    "adjustedScore": 144.85,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 7,
+    "name": "Justin Danforth for Hart",
+    "rawScore": 157.55,
+    "adjustedScore": 157.55,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 10,
+   "week": 3,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 1,
+    "name": "McDavid, et al. 2026",
+    "rawScore": 200.4,
+    "adjustedScore": 200.4,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 3,
+    "name": "Nicholas's Nifty Team",
+    "rawScore": 127.05,
+    "adjustedScore": 127.05,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 11,
+   "week": 3,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 4,
+    "name": "Knies Guys Finish 1st",
+    "rawScore": 166.4,
+    "adjustedScore": 168.9,
+    "adjustment": 2.5,
+    "goaliePoints": 2.5
+   },
+   "awayTeam": {
+    "id": 6,
+    "name": "Let's do that hockey",
+    "rawScore": 188.85,
+    "adjustedScore": 188.85,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 12,
+   "week": 3,
+   "final": true,
+   "playoff": false,
+   "homeTeam": {
+    "id": 8,
+    "name": "Columbus Landsharks",
+    "rawScore": 114.65,
+    "adjustedScore": 114.65,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 2,
+    "name": "it me",
+    "rawScore": 145.75,
+    "adjustedScore": 145.75,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 13,
+   "week": 4,
+   "final": false,
+   "playoff": false,
+   "homeTeam": {
+    "id": 7,
+    "name": "Justin Danforth for Hart",
+    "rawScore": 60.55,
+    "adjustedScore": 60.55,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 6,
+    "name": "Let's do that hockey",
+    "rawScore": 58.15,
+    "adjustedScore": 58.15,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 14,
+   "week": 4,
+   "final": false,
+   "playoff": false,
+   "homeTeam": {
+    "id": 3,
+    "name": "Nicholas's Nifty Team",
+    "rawScore": 53.2,
+    "adjustedScore": 53.2,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 2,
+    "name": "it me",
+    "rawScore": 69.05,
+    "adjustedScore": 69.05,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
+   "flipped": false
+  },
+  {
+   "id": 15,
+   "week": 4,
+   "final": false,
+   "playoff": false,
+   "homeTeam": {
+    "id": 1,
+    "name": "McDavid, et al. 2026",
+    "rawScore": 51.9,
+    "adjustedScore": 51.9,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 8,
+    "name": "Columbus Landsharks",
+    "rawScore": 36.1,
+    "adjustedScore": 36.1,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  },
+  {
+   "id": 16,
+   "week": 4,
+   "final": false,
+   "playoff": false,
+   "homeTeam": {
+    "id": 5,
+    "name": "Fresh Prince",
+    "rawScore": 64.0,
+    "adjustedScore": 64.0,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "awayTeam": {
+    "id": 4,
+    "name": "Knies Guys Finish 1st",
+    "rawScore": 41.35,
+    "adjustedScore": 41.35,
+    "adjustment": 0.0,
+    "goaliePoints": 0.0
+   },
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
+   "flipped": false
+  }
+ ]
+}
