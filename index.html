@@ -149,7 +149,7 @@
                   :class="weekFinal(week) ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300' : 'bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-300'"
                   x-text="weekFinal(week) ? 'Final' : 'In progress'"></span>
           </h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400">Raw vs adjusted scores</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400" x-text="[spanLabel(week), 'Raw vs adjusted scores'].filter(Boolean).join(' · ')"></p>
         </div>
         <div class="flex w-full items-center sm:w-auto" role="group" aria-label="Choose week">
           <button type="button" @click="stepWeek(-1)" :disabled="!adjacentWeek(-1)" aria-label="Previous week"
@@ -427,10 +427,18 @@ function dashboard() {
       const total = this.data.meta.totalWeeks ?? Math.max(0, ...this.weeks);
       return Array.from({ length: total }, (_, i) => i + 1);
     },
-    // matchup periods after the regular season are playoff rounds (two weeks each in our league)
+    // matchup periods after the regular season are playoff rounds
     weekLabel(w) {
       const reg = this.data.meta.regularSeasonWeeks;
       return reg && w > reg ? `Playoffs, round ${w - reg}` : `Week ${w}`;
+    },
+    // a matchup's dates; it isn't always one week (breaks, playoff rounds), so show the length when longer
+    spanLabel(w) {
+      const span = (this.data.weeks ?? []).find(x => x.week === w);
+      if (!span?.start) return "";
+      const day = d => new Date(d + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" });
+      if (!span.end) return `Since ${day(span.start)}`;
+      return `${day(span.start)} – ${day(span.end)}` + (span.days > 8 ? ` · ${span.days} days` : "");
     },
     weekFinal(w) {
       const ms = this.data.matchups.filter(m => m.week === w);
@@ -448,7 +456,8 @@ function dashboard() {
     },
     weekTitle(w) {
       const label = { future: "not played yet", flipped: "a matchup was flipped by goalie points", final: "final", live: "in progress" };
-      return `${this.weekLabel(w)}: ${label[this.weekState(w)]}`;
+      const span = this.spanLabel(w);
+      return `${this.weekLabel(w)}: ${label[this.weekState(w)]}` + (span ? ` (${span})` : "");
     },
     weekDotClass(w) {
       const state = this.weekState(w);
