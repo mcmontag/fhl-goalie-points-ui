@@ -92,7 +92,7 @@
       </div>
 
       <p x-show="!feed.length" class="py-8 text-center text-slate-500"
-         x-text="feedFilter === 'benched' ? 'No goalie has scored from a fantasy bench this season.' : 'No goalie points yet this season.'"></p>
+         x-text="feedFilter === 'benched' ? 'No goalie has scored while benched this season.' : 'No goalie points yet this season.'"></p>
       <ol class="space-y-3">
         <template x-for="a in feed" :key="a.id">
           <li class="rounded-xl bg-white p-4 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"
