@@ -1,6 +1,6 @@
 {
  "meta": {
-  "lastRunUtc": "2026-10-25T05:45:29Z",
+  "lastRunUtc": "2026-10-25T10:51:01Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
@@ -168,7 +168,7 @@
    "period": 4,
    "timeInPeriod": "01:44",
    "highlightUrl": "https://nhl.com/video/tbl-uta-simashev-scores-goal-against-dennis-hildeby-6407369201112",
-   "auditIssue": null
+   "auditIssue": 6
   }
  ],
  "matchups": [
@@ -480,16 +480,16 @@
    "homeTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 87.85,
-    "adjustedScore": 87.85,
+    "rawScore": 125.1,
+    "adjustedScore": 125.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 125.65,
-    "adjustedScore": 125.65,
+    "rawScore": 169.55,
+    "adjustedScore": 169.55,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -505,21 +505,21 @@
    "homeTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 91.5,
-    "adjustedScore": 91.5,
+    "rawScore": 117.4,
+    "adjustedScore": 117.4,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 92.0,
-    "adjustedScore": 92.0,
+    "rawScore": 111.95,
+    "adjustedScore": 111.95,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "AWAY",
-   "adjustedLeader": "AWAY",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   },
   {
@@ -530,16 +530,16 @@
    "homeTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 112.95,
-    "adjustedScore": 114.95,
+    "rawScore": 154.7,
+    "adjustedScore": 156.7,
     "adjustment": 2.0,
     "goaliePoints": 2.0
    },
    "awayTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 68.2,
-    "adjustedScore": 68.2,
+    "rawScore": 108.25,
+    "adjustedScore": 108.25,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -555,21 +555,21 @@
    "homeTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 101.35,
-    "adjustedScore": 101.35,
+    "rawScore": 162.1,
+    "adjustedScore": 162.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 104.45,
-    "adjustedScore": 104.45,
+    "rawScore": 155.35,
+    "adjustedScore": 155.35,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "AWAY",
-   "adjustedLeader": "AWAY",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   }
  ]
