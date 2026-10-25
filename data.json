@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-10-24T08:40:48Z",
+  "lastRunUtc": "2026-10-25T05:45:29Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 26,
+  "currentScoringPeriod": 27,
   "currentWeek": 4,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -145,6 +145,30 @@
    "timeInPeriod": "16:42",
    "highlightUrl": "https://nhl.com/video/njd-wsh-leonard-scores-ppg-against-jake-allen-6407019644112",
    "auditIssue": 4
+  },
+  {
+   "id": "2026020177-1187-8478872-assist",
+   "timestamp": "2026-10-25T01:00:00Z",
+   "gameDate": "2026-10-24",
+   "week": 4,
+   "scoringPeriod": 26,
+   "matchupId": 15,
+   "goalieName": "Karel Vejmelka",
+   "goalieId": 8478872,
+   "nhlTeam": "UTA",
+   "headshotUrl": "https://assets.nhle.com/mugs/nhl/20262027/UTA/8478872.png",
+   "fantasyTeamId": 1,
+   "fantasyTeamName": "McDavid, et al. 2026",
+   "eventType": "assist",
+   "strength": "ev",
+   "pointsAdded": 2.0,
+   "benched": false,
+   "gameId": 2026020177,
+   "eventId": 1187,
+   "period": 4,
+   "timeInPeriod": "01:44",
+   "highlightUrl": "https://nhl.com/video/tbl-uta-simashev-scores-goal-against-dennis-hildeby-6407369201112",
+   "auditIssue": null
   }
  ],
  "matchups": [
@@ -507,9 +531,9 @@
     "id": 1,
     "name": "McDavid, et al. 2026",
     "rawScore": 112.95,
-    "adjustedScore": 112.95,
-    "adjustment": 0.0,
-    "goaliePoints": 0.0
+    "adjustedScore": 114.95,
+    "adjustment": 2.0,
+    "goaliePoints": 2.0
    },
    "awayTeam": {
     "id": 8,
