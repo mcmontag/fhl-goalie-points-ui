@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-10-26T12:47:22Z",
+  "lastRunUtc": "2026-10-27T07:21:48Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 28,
+  "currentScoringPeriod": 29,
   "currentWeek": 5,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -586,21 +586,21 @@
    "homeTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 15.95,
+    "adjustedScore": 15.95,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 14.65,
+    "adjustedScore": 14.65,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   },
   {
@@ -611,21 +611,21 @@
    "homeTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 4.05,
+    "adjustedScore": 4.05,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 3.85,
+    "adjustedScore": 3.85,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   },
   {
@@ -636,8 +636,8 @@
    "homeTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 11.9,
+    "adjustedScore": 11.9,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -649,8 +649,8 @@
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   },
   {
@@ -661,21 +661,21 @@
    "homeTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 5.25,
+    "adjustedScore": 5.25,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 4.95,
+    "adjustedScore": 4.95,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   }
  ]
