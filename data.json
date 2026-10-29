@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-10-28T13:50:49Z",
+  "lastRunUtc": "2026-10-29T08:05:19Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 30,
+  "currentScoringPeriod": 31,
   "currentWeek": 5,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -586,16 +586,16 @@
    "homeTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 55.55,
-    "adjustedScore": 55.55,
+    "rawScore": 59.15,
+    "adjustedScore": 59.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 34.6,
-    "adjustedScore": 34.6,
+    "rawScore": 50.8,
+    "adjustedScore": 50.8,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -611,16 +611,16 @@
    "homeTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 47.0,
-    "adjustedScore": 47.0,
+    "rawScore": 51.3,
+    "adjustedScore": 51.3,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 34.15,
-    "adjustedScore": 34.15,
+    "rawScore": 42.15,
+    "adjustedScore": 42.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -636,16 +636,16 @@
    "homeTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 26.45,
-    "adjustedScore": 26.45,
+    "rawScore": 31.2,
+    "adjustedScore": 31.2,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 42.6,
-    "adjustedScore": 42.6,
+    "rawScore": 50.95,
+    "adjustedScore": 50.95,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -661,21 +661,21 @@
    "homeTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 42.1,
-    "adjustedScore": 42.1,
+    "rawScore": 55.7,
+    "adjustedScore": 55.7,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 38.7,
-    "adjustedScore": 38.7,
+    "rawScore": 60.55,
+    "adjustedScore": 60.55,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "HOME",
-   "adjustedLeader": "HOME",
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
    "flipped": false
   }
  ]
