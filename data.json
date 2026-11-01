@@ -1,6 +1,6 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-01T05:25:08Z",
+  "lastRunUtc": "2026-11-01T12:45:36Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
@@ -586,16 +586,16 @@
    "homeTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 96.9,
-    "adjustedScore": 96.9,
+    "rawScore": 135.8,
+    "adjustedScore": 135.8,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 92.9,
-    "adjustedScore": 92.9,
+    "rawScore": 105.85,
+    "adjustedScore": 105.85,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -611,16 +611,16 @@
    "homeTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 101.9,
-    "adjustedScore": 101.9,
+    "rawScore": 129.75,
+    "adjustedScore": 129.75,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 80.2,
-    "adjustedScore": 80.2,
+    "rawScore": 121.95,
+    "adjustedScore": 121.95,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -636,16 +636,16 @@
    "homeTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 63.3,
-    "adjustedScore": 63.3,
+    "rawScore": 91.3,
+    "adjustedScore": 91.3,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 128.35,
-    "adjustedScore": 128.35,
+    "rawScore": 151.15,
+    "adjustedScore": 151.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -661,21 +661,21 @@
    "homeTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 94.5,
-    "adjustedScore": 94.5,
+    "rawScore": 151.15,
+    "adjustedScore": 151.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 126.5,
-    "adjustedScore": 126.5,
+    "rawScore": 144.15,
+    "adjustedScore": 144.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "AWAY",
-   "adjustedLeader": "AWAY",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   }
  ]
