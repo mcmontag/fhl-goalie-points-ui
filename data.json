@@ -1,6 +1,6 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-03T07:37:10Z",
+  "lastRunUtc": "2026-11-03T15:52:14Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
@@ -600,8 +600,8 @@
    "awayTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 109.65,
-    "adjustedScore": 109.65,
+    "rawScore": 109.25,
+    "adjustedScore": 109.25,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -625,8 +625,8 @@
    "awayTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 145.3,
-    "adjustedScore": 145.3,
+    "rawScore": 145.05,
+    "adjustedScore": 145.05,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -642,16 +642,16 @@
    "homeTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 95.9,
-    "adjustedScore": 95.9,
+    "rawScore": 95.7,
+    "adjustedScore": 95.7,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 184.55,
-    "adjustedScore": 184.55,
+    "rawScore": 184.75,
+    "adjustedScore": 184.75,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -667,16 +667,16 @@
    "homeTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 163.7,
-    "adjustedScore": 163.7,
+    "rawScore": 163.5,
+    "adjustedScore": 163.5,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 164.4,
-    "adjustedScore": 164.4,
+    "rawScore": 165.3,
+    "adjustedScore": 165.3,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -692,21 +692,21 @@
    "homeTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 11.9,
+    "adjustedScore": 11.9,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 23.3,
+    "adjustedScore": 23.3,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
    "flipped": false
   },
   {
@@ -717,21 +717,21 @@
    "homeTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 11.25,
+    "adjustedScore": 11.25,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 9.1,
+    "adjustedScore": 9.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   },
   {
@@ -742,21 +742,21 @@
    "homeTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 13.45,
+    "adjustedScore": 13.45,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 7.15,
+    "adjustedScore": 7.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   },
   {
@@ -767,21 +767,21 @@
    "homeTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 11.0,
+    "adjustedScore": 11.0,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 0.0,
-    "adjustedScore": 0.0,
+    "rawScore": 10.25,
+    "adjustedScore": 10.25,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "TIE",
-   "adjustedLeader": "TIE",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   }
  ]
