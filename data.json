@@ -1,6 +1,6 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-08T06:57:52Z",
+  "lastRunUtc": "2026-11-08T14:10:46Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
@@ -692,16 +692,16 @@
    "homeTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 124.45,
-    "adjustedScore": 124.45,
+    "rawScore": 176.0,
+    "adjustedScore": 176.0,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 133.55,
-    "adjustedScore": 133.55,
+    "rawScore": 192.75,
+    "adjustedScore": 192.75,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -717,16 +717,16 @@
    "homeTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 100.7,
-    "adjustedScore": 100.7,
+    "rawScore": 148.6,
+    "adjustedScore": 148.6,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 127.25,
-    "adjustedScore": 127.25,
+    "rawScore": 165.35,
+    "adjustedScore": 165.35,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -742,16 +742,16 @@
    "homeTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 148.95,
-    "adjustedScore": 148.95,
+    "rawScore": 192.95,
+    "adjustedScore": 192.95,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 102.45,
-    "adjustedScore": 102.45,
+    "rawScore": 157.2,
+    "adjustedScore": 157.2,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -767,16 +767,16 @@
    "homeTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 74.0,
-    "adjustedScore": 74.0,
+    "rawScore": 111.1,
+    "adjustedScore": 111.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 112.1,
-    "adjustedScore": 112.1,
+    "rawScore": 149.65,
+    "adjustedScore": 149.65,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
