@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-08T14:10:46Z",
+  "lastRunUtc": "2026-11-09T07:42:05Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 41,
+  "currentScoringPeriod": 42,
   "currentWeek": 6,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
