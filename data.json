@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-13T11:53:08Z",
+  "lastRunUtc": "2026-11-14T09:50:56Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 46,
+  "currentScoringPeriod": 47,
   "currentWeek": 7,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -798,16 +798,16 @@
    "homeTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 91.65,
-    "adjustedScore": 91.65,
+    "rawScore": 110.4,
+    "adjustedScore": 110.4,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 85.85,
-    "adjustedScore": 85.85,
+    "rawScore": 93.1,
+    "adjustedScore": 93.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -823,16 +823,16 @@
    "homeTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 98.8,
-    "adjustedScore": 98.8,
+    "rawScore": 107.55,
+    "adjustedScore": 107.55,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 97.7,
-    "adjustedScore": 97.7,
+    "rawScore": 102.8,
+    "adjustedScore": 102.8,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -848,16 +848,16 @@
    "homeTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 52.85,
-    "adjustedScore": 52.85,
+    "rawScore": 61.05,
+    "adjustedScore": 61.05,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 66.25,
-    "adjustedScore": 66.25,
+    "rawScore": 70.1,
+    "adjustedScore": 70.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -873,16 +873,16 @@
    "homeTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 78.8,
-    "adjustedScore": 78.8,
+    "rawScore": 81.85,
+    "adjustedScore": 81.85,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 85.55,
-    "adjustedScore": 85.55,
+    "rawScore": 92.15,
+    "adjustedScore": 92.15,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
