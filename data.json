@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-20T14:57:34Z",
+  "lastRunUtc": "2026-11-21T12:10:03Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 53,
+  "currentScoringPeriod": 54,
   "currentWeek": 8,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -904,8 +904,8 @@
    "homeTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 75.8,
-    "adjustedScore": 75.8,
+    "rawScore": 75.6,
+    "adjustedScore": 75.6,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -929,16 +929,16 @@
    "homeTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 116.5,
-    "adjustedScore": 116.5,
+    "rawScore": 116.7,
+    "adjustedScore": 116.7,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 94.7,
-    "adjustedScore": 94.7,
+    "rawScore": 95.1,
+    "adjustedScore": 95.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -962,8 +962,8 @@
    "awayTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 61.1,
-    "adjustedScore": 61.1,
+    "rawScore": 60.9,
+    "adjustedScore": 60.9,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -987,8 +987,8 @@
    "awayTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 105.2,
-    "adjustedScore": 105.2,
+    "rawScore": 104.7,
+    "adjustedScore": 104.7,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
