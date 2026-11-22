@@ -1,6 +1,6 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-21T22:03:05Z",
+  "lastRunUtc": "2026-11-22T02:50:16Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
@@ -216,6 +216,30 @@
    "period": 1,
    "timeInPeriod": "10:38",
    "highlightUrl": "https://nhl.com/video/edm-car-michaels-scores-goal-against-pyotr-kochetkov-6408707658112",
+   "auditIssue": 7
+  },
+  {
+   "id": "2026020363-625-8480280-assist",
+   "timestamp": "2026-11-22T00:00:00Z",
+   "gameDate": "2026-11-21",
+   "week": 8,
+   "scoringPeriod": 54,
+   "matchupId": 31,
+   "goalieName": "Jeremy Swayman",
+   "goalieId": 8480280,
+   "nhlTeam": "BOS",
+   "headshotUrl": "https://assets.nhle.com/mugs/nhl/20262027/BOS/8480280.png",
+   "fantasyTeamId": 6,
+   "fantasyTeamName": "Let's do that hockey",
+   "eventType": "assist",
+   "strength": "ev",
+   "pointsAdded": 2.0,
+   "benched": false,
+   "gameId": 2026020363,
+   "eventId": 625,
+   "period": 2,
+   "timeInPeriod": "08:54",
+   "highlightUrl": "https://nhl.com/video/wsh-bos-lindholm-scores-goal-against-charlie-lindgren-6408718505112",
    "auditIssue": null
   }
  ],
@@ -979,9 +1003,9 @@
     "id": 6,
     "name": "Let's do that hockey",
     "rawScore": 98.0,
-    "adjustedScore": 98.0,
-    "adjustment": 0.0,
-    "goaliePoints": 0.0
+    "adjustedScore": 100.0,
+    "adjustment": 2.0,
+    "goaliePoints": 2.0
    },
    "awayTeam": {
     "id": 2,
