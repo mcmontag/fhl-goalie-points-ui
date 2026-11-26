@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-25T10:54:39Z",
+  "lastRunUtc": "2026-11-26T09:12:05Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 58,
+  "currentScoringPeriod": 59,
   "currentWeek": 9,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -1058,21 +1058,21 @@
    "homeTeam": {
     "id": 1,
     "name": "McDavid, et al. 2026",
-    "rawScore": 25.5,
-    "adjustedScore": 25.5,
+    "rawScore": 71.35,
+    "adjustedScore": 71.35,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 7,
     "name": "Justin Danforth for Hart",
-    "rawScore": 25.25,
-    "adjustedScore": 25.25,
+    "rawScore": 74.0,
+    "adjustedScore": 74.0,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "HOME",
-   "adjustedLeader": "HOME",
+   "rawLeader": "AWAY",
+   "adjustedLeader": "AWAY",
    "flipped": false
   },
   {
@@ -1083,16 +1083,16 @@
    "homeTeam": {
     "id": 3,
     "name": "Nicholas's Nifty Team",
-    "rawScore": 24.5,
-    "adjustedScore": 24.5,
+    "rawScore": 53.1,
+    "adjustedScore": 53.1,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 10.35,
-    "adjustedScore": 10.35,
+    "rawScore": 40.85,
+    "adjustedScore": 40.85,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -1108,16 +1108,16 @@
    "homeTeam": {
     "id": 8,
     "name": "Columbus Landsharks",
-    "rawScore": 9.55,
-    "adjustedScore": 9.55,
+    "rawScore": 50.25,
+    "adjustedScore": 50.25,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 6,
     "name": "Let's do that hockey",
-    "rawScore": 33.3,
-    "adjustedScore": 33.3,
+    "rawScore": 62.5,
+    "adjustedScore": 62.5,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -1133,21 +1133,21 @@
    "homeTeam": {
     "id": 2,
     "name": "it me",
-    "rawScore": 18.05,
-    "adjustedScore": 18.05,
+    "rawScore": 51.3,
+    "adjustedScore": 51.3,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
    "awayTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 18.9,
-    "adjustedScore": 18.9,
+    "rawScore": 43.7,
+    "adjustedScore": 43.7,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
-   "rawLeader": "AWAY",
-   "adjustedLeader": "AWAY",
+   "rawLeader": "HOME",
+   "adjustedLeader": "HOME",
    "flipped": false
   }
  ]
