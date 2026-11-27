@@ -1,10 +1,10 @@
 {
  "meta": {
-  "lastRunUtc": "2026-11-26T09:12:05Z",
+  "lastRunUtc": "2026-11-27T09:31:40Z",
   "leagueName": "New League Who Dis",
   "season": "2026-2027",
   "auditIssuesUrl": "https://github.com/mcmontag/fhl-goalie-points-ui/issues",
-  "currentScoringPeriod": 59,
+  "currentScoringPeriod": 60,
   "currentWeek": 9,
   "totalWeeks": 25,
   "regularSeasonWeeks": 23,
@@ -1091,8 +1091,8 @@
    "awayTeam": {
     "id": 5,
     "name": "Fresh Prince",
-    "rawScore": 40.85,
-    "adjustedScore": 40.85,
+    "rawScore": 40.65,
+    "adjustedScore": 40.65,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
@@ -1141,8 +1141,8 @@
    "awayTeam": {
     "id": 4,
     "name": "Knies Guys Finish 1st",
-    "rawScore": 43.7,
-    "adjustedScore": 43.7,
+    "rawScore": 43.9,
+    "adjustedScore": 43.9,
     "adjustment": 0.0,
     "goaliePoints": 0.0
    },
